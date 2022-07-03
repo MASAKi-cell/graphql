@@ -1,9 +1,6 @@
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
-const { PubSub } = require('pubsub');
-
-const pubSub = new PubSub();
 
 const schema = buildSchema(`
 
