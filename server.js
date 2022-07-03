@@ -1,6 +1,9 @@
 const express = require('express');
 const { graphqlHTTP } = require('express-graphql');
 const { buildSchema } = require('graphql');
+const { PubSub } = require('pubsub');
+
+const pubSub = new PubSub();
 
 const schema = buildSchema(`
 
@@ -59,6 +62,7 @@ const root = {
       return new Message(id, fakeDatebase[id]);
     },
     createMessage: ({input}) => {
+      // idを生成
       let id = require('crypto').randomBytes(10).toString('hex');
 
       fakeDatebase[id] = input;
