@@ -1,5 +1,6 @@
 const Mutation = {
     createPost(parent, args, {db}, info) {
+        // データの新規作成
         const postnumTotal = String(db.post.length + 1);
         const post = {
             id: postnumTotal,
@@ -14,10 +15,13 @@ const Mutation = {
             }
         });
         return post;
+        
     },
     updatePost(parent, args, {db}, info) {
+        // データのアップデート
         const {id, data} = args;
         const post = db.posts.find((post) => post.id === id);
+
         if(!post) {
             throw new Error('Post not found');
         }
@@ -30,6 +34,25 @@ const Mutation = {
         pubsub.publish('post', {
             post: {
                 mutation: 'UPDATE',
+                data: post
+            }
+        });
+        return post;
+    },
+    deletePost(parent, args, {db, pubsub}, info) {
+        // データの削除
+        const post = db.posts.find((post) => post.id === args.id);
+        const postIndex = db.posts.findIndex((post) => post.id === args.id);
+
+        if(postIndex === -1) {
+            throw new Error('Post not found');
+        }
+
+        db.posts.splice(postIndex, 1);
+
+        pubsub.publish('post', {
+            post: {
+                mutation: 'DELETED',
                 data: post
             }
         });
