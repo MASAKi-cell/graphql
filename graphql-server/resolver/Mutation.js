@@ -15,7 +15,7 @@ const Mutation = {
             }
         });
         return post;
-        
+
     },
     updatePost(parent, args, {db}, info) {
         // データのアップデート
@@ -59,3 +59,5 @@ const Mutation = {
         return post;
     }
 }
+
+module.exports = Mutation;
