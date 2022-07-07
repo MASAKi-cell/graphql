@@ -8,6 +8,8 @@ const Mutation = {
         }
         db.posts.push(post);
 
+
+        // Subscriptionの着火
         pubsub.publish('post', {
             post: {
                 mutation: 'CREATED',
@@ -31,6 +33,8 @@ const Mutation = {
             post.author = data.author;
         }
 
+
+        // Subscriptionの着火
         pubsub.publish('post', {
             post: {
                 mutation: 'UPDATE',
@@ -50,6 +54,7 @@ const Mutation = {
 
         db.posts.splice(postIndex, 1);
 
+        // Subscriptionの着火
         pubsub.publish('post', {
             post: {
                 mutation: 'DELETED',
