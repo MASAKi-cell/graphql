@@ -16,4 +16,4 @@ const db = {
     posts,
 }
 
-module.exports =db;
+module.exports = db;

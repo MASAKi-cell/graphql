@@ -1,7 +1,7 @@
 const Mutation = {
     createPost(parent, args, {db}, info) {
         // データの新規作成
-        const postnumTotal = String(db.post.length + 1);
+        const postnumTotal = String(db.posts.length + 1);
         const post = {
             id: postnumTotal,
             ...args.data
